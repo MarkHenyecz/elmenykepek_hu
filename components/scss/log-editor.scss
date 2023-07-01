@@ -1,0 +1,55 @@
+@import "variables.scss";
+
+.log-editor {
+    background-color: $color-background-2;
+    width: 1250px;
+    height: 80vh;
+
+    display: flex;
+
+    &__leftSide {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        align-items: center;
+
+        select {
+            background-color: $color-background-1;
+            margin: 1vh;
+            text-align: center;
+            padding: 1vh;
+            font-size: 35px;
+        }
+
+        textarea {
+            background-color: $color-background-1;
+            margin: 1vh;
+            width: calc(100% - 2vh);
+        }
+
+        label {
+            width: fit-content;
+        }
+    }
+
+    &__rightSide {
+        width: 50%;
+
+        .text-area {
+            margin: 1vh;
+            padding: 1vh;
+            background-color: black;
+
+            width: calc(100% - 2vh);
+            height: calc(100% - 2vh);
+            overflow-y: scroll;
+            overflow-x: hidden;
+
+            * {
+                font-family: Tahoma;
+                font-weight: bold;
+                font-size: 12px;
+            }
+        }
+    }
+}
