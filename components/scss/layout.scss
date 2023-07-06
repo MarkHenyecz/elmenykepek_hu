@@ -48,19 +48,6 @@ header {
             color: $color-main;
         }
     }
-
-    .avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 100%;
-        background-color: $color-background-1;
-
-        justify-content: center;
-        align-items: end;
-
-        font-size: 40px;
-        overflow: hidden;
-    }
 }
 
 .content {

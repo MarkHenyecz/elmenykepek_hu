@@ -1,0 +1,15 @@
+@import "variables.scss";
+
+.heart {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+    gap: 2vh;
+
+    width: 130px;
+    padding: .5vh;
+
+    p {
+        font-size: 30px;
+    }
+}

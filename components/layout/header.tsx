@@ -5,6 +5,7 @@ import { navBarItems } from "./header.variables";
 import { NavBarItem } from "./header.interface";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import AvatarElem from "../avatar/avatar";
 
 const NavBarElem = ({ item, openSearchBar }: { item: NavBarItem, openSearchBar: () => void }) => {
     const path = usePathname()
@@ -66,14 +67,7 @@ const Header = () => {
             width={50}
             height={50}
             />
-            <div className="avatar">
-                <Image 
-                src="/icons/user-icon.svg"
-                alt="Avatár"
-                width={35}
-                height={35}
-                />
-            </div>
+            <AvatarElem />
         </div>
     </header>
     )
