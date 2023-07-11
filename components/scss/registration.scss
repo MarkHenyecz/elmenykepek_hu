@@ -1,0 +1,41 @@
+@import 'variables.scss';
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    main {
+        background-color: $color-background-2;
+        height: 100%;
+        width: 20rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h1 {
+            font-size: 40px;
+        }
+
+        input {
+            background-color: $color-background-1;
+            color: $color-main;
+            border: 2px solid $color-main;
+            margin: 1vh;
+            padding: .5vh;
+        }
+
+        button {
+            background-color: $color-background-1;
+            padding: 1vh;
+            border-radius: 5px;
+            margin: 1vh;
+        }
+        p {
+            font-size: 10px;
+            margin-bottom: 2vh;
+        }
+    }
+}
