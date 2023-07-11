@@ -14,6 +14,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        border-radius: 5px;
 
         h1 {
             font-size: 40px;
@@ -25,6 +26,7 @@
             border: 2px solid $color-main;
             margin: 1vh;
             padding: .5vh;
+            border-radius: 5px;
         }
 
         button {

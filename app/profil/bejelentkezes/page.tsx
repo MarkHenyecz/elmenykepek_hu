@@ -10,17 +10,16 @@ export default function Home() {
   return (
     <main>
       <h1>
-        Regisztráció
+        Bejelentkezés
       </h1>
       <input type="email" name='email' placeholder='Email cím' />
       <input type="password" name='password' placeholder='Jelszó' />
-      <input type="password" name='password-again' placeholder='Jelszó mégegyszer' />
       <button>
-        {isLoading ? <LoaderElem /> : 'Regisztráció'}
+        {isLoading ? <LoaderElem /> : 'Bejelentkezés'}
       </button>
-      <Link href={"/profil/bejelentkezes"}>
+      <Link href={"/profil/regisztracio"}>
         <p>
-          Már rendelkezem fiókkal...
+          Még nem rendelkezem fiókkal...
         </p>
       </Link>
     </main>
