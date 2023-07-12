@@ -18,4 +18,13 @@ main {
         width: 2000%;
         background-color: $color-background-1;
     }
+
+    .scrollWrapper {
+        max-width: 1249px;
+
+        gap: 2vh;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 1fr;
+    }
 }
