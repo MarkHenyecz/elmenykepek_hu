@@ -1,3 +1,4 @@
+import '../../components/scss/profile.scss'
 import PostElem from '@/components/post/post'
 import Image from 'next/image'
 
