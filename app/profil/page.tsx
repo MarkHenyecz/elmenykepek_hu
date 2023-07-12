@@ -1,11 +1,9 @@
 import PostElem from '@/components/post/post'
 import Image from 'next/image'
 
-export default function Home() {
+export default function Profile() {
   return (
     <main>
-      <PostElem />
-      <PostElem />
     </main>
   )
 }

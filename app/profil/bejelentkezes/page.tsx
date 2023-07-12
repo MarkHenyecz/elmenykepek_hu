@@ -4,7 +4,7 @@ import '../../../components/scss/registration.scss'
 import { useState } from 'react';
 import LoaderElem from '@/components/loader/loader';
 
-export default function Home() {
+export default function Login() {
   const [isLoading, setIsLoading] = useState(false)
 
   return (
