@@ -1,2 +1,21 @@
 @import "variables.scss";
 
+main {
+    background-color: $color-background-2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vh;
+    overflow: hidden;
+
+    h1 {
+        text-align: center;
+        font-size: 48px;
+    }
+
+    .divider {
+        height: 10px;
+        width: 2000%;
+        background-color: $color-background-1;
+    }
+}
