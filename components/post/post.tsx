@@ -29,7 +29,7 @@ export default function PostElem() {
                 </div>
                 <div className='albumName'>
                     <p>
-                        Drug dealin' vol 1
+                        Drug dealin&apos; vol 1
                     </p>
                 </div>
             </div>

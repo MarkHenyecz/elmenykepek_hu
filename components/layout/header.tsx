@@ -54,7 +54,7 @@ const Header = () => {
                 </div> : 
                 <>
                     {navBarItems.map(item => 
-                        <NavBarElem item={item} openSearchBar={() => setSearchBarOpen(!searchBarOpen)} />
+                        <NavBarElem key={item.name} item={item} openSearchBar={() => setSearchBarOpen(!searchBarOpen)} />
                     )}
                 </>
             }

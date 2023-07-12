@@ -27,6 +27,7 @@ export default function LogEditor() {
         <select onChange={(e) => setCurrentEditor(logEditorOptions.find(editor => editor.serverName == e.target.value))}>
           {logEditorOptions.map(item =>
             <option 
+            key={item.serverName}
             value={item.serverName} 
             selected={currentEditor?.serverName == item.serverName}>
               {item.serverName}
@@ -42,8 +43,8 @@ export default function LogEditor() {
       </div>
       <div className='log-editor__rightSide'>
         <div className='text-area'>
-          {formattedText.map(text => 
-            <p dangerouslySetInnerHTML={{__html: text}}></p>
+          {formattedText.map((text, key) => 
+            <p key={key} dangerouslySetInnerHTML={{__html: text}}></p>
           )}
         </div>
       </div>

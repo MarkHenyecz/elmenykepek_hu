@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
         <div className="buttons">
             {footerItems.map(item => 
-                <Link href={item.href ?? ''}>
+                <Link key={item.name} href={item.href ?? ''}>
                     <p className={path == item.href ? 'font-bold' : ''}>{item.name}</p>
                 </Link>
             )}
