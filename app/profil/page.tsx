@@ -4,7 +4,6 @@ import '../../components/scss/profile.scss'
 import PostElem from '@/components/post/post'
 import Image from 'next/image'
 import ProfilePageCharacterElem from '@/components/profilePageCharacter/profilePageCharacter'
-import ReactSwipe from 'react-swipe';
 
 export default function Profile() {
   let reactSwipeEl;

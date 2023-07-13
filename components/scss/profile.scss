@@ -20,11 +20,13 @@ main {
     }
 
     .scrollWrapper {
-        max-width: 1249px;
-
         gap: 2vh;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: 1fr;
+
+        div:last-child:nth-child(odd) {
+            transform: translateX(calc(50% + 1vh));
+        }
     }
 }
