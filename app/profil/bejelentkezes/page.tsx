@@ -8,7 +8,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false)
 
   return (
-    <main>
+    <main className='registration'>
       <h1>
         Bejelentkezés
       </h1>

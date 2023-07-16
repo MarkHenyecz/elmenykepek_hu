@@ -8,7 +8,7 @@ export default function Registration() {
   const [isLoading, setIsLoading] = useState(false)
 
   return (
-    <main>
+    <main className='registration'>
       <h1>
         Regisztráció
       </h1>
