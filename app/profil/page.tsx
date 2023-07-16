@@ -9,7 +9,7 @@ export default function Profile() {
   let reactSwipeEl;
 
   return (
-    <main>
+    <main className='profile'>
       <AvatarElem width={190} height={190} />
       <h1>flakszxd</h1>
       <div className='divider' />
