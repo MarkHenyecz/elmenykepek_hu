@@ -61,13 +61,17 @@ const Header = () => {
         </div>
 
         <div>
-            <Image 
-            src="/icons/upload-icon.svg"
-            alt="Új képek feltöltése"
-            width={50}
-            height={50}
-            />
-            <AvatarElem />
+            <Link href={"/feltoltes"}>
+                <Image 
+                src="/icons/upload-icon.svg"
+                alt="Új képek feltöltése"
+                width={50}
+                height={50}
+                />
+            </Link>
+            <Link href={"/profil"}>
+                <AvatarElem />
+            </Link>
         </div>
     </header>
     )
