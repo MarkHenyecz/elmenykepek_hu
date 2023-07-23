@@ -6,6 +6,7 @@ import { NavBarItem } from "./header.interface";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import AvatarElem from "../avatar/avatar";
+import { useAuthStore } from "../stores/authStore";
 
 const NavBarElem = ({ item, openSearchBar }: { item: NavBarItem, openSearchBar: () => void }) => {
     const path = usePathname()
@@ -26,7 +27,7 @@ const NavBarElem = ({ item, openSearchBar }: { item: NavBarItem, openSearchBar: 
 
 const Header = () => {
     const [searchBarOpen, setSearchBarOpen] = useState(false)
-
+    const authStore = useAuthStore()
 
     return (
     <header>
@@ -61,17 +62,25 @@ const Header = () => {
         </div>
 
         <div>
-            <Link href={"/feltoltes"}>
-                <Image 
-                src="/icons/upload-icon.svg"
-                alt="Új képek feltöltése"
-                width={50}
-                height={50}
-                />
-            </Link>
-            <Link href={"/profil"}>
-                <AvatarElem />
-            </Link>
+            {authStore.isLoggedIn ? 
+                <Link href={"/feltoltes"}>
+                    <Image 
+                    src="/icons/upload-icon.svg"
+                    alt="Új képek feltöltése"
+                    width={50}
+                    height={50}
+                    />
+                </Link>
+            : null}
+            {authStore.isLoggedIn ? 
+                <Link href={"/profil"}>
+                    <AvatarElem />
+                </Link>
+            : 
+                <Link href={"/profil/bejelentkezes"}>
+                    <AvatarElem />
+                </Link>
+            }
         </div>
     </header>
     )
