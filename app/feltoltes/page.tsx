@@ -1,23 +1,39 @@
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../components/scss/upload.scss'
 import Image from 'next/image';
+import CharacterModal from '@/components/character-modal/characterModal';
+import { Character } from '@/components/interfaces/character.interface';
+import { characterService } from '@/components/api/characterService';
+import { File } from '@/components/interfaces/file.interface';
 
 
 export default function LogEditor() {
-  const [uploadedImages, setUploadedImages] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [characters, setCharacters] = useState<Character[]>([])
+  const [uploadedImages, setUploadedImages] = useState<File[]>([])
+
+  const getData = async () => {
+    setCharacters((await characterService.getMyCharacters()).data)
+  }
+
+  useEffect(() => {getData()}, [])
 
   return (
     <main className='upload'>
+      {isModalOpen ? <CharacterModal close={() => setIsModalOpen(false)} /> : null}
+
       <input type="text" placeholder='Album címe...' />
 
       <div className='characterSection'>
         <select>
           <option disabled selected>Válassz karaktert</option>
-          <option value={1}>Gino Rivers</option>
+          {characters?.map(item =>
+            <option value={item.id}>{item.name}</option>
+          )}
         </select>
 
-        <p>
+        <p onClick={() => setIsModalOpen(true)}>
           + új karakter létrehozása
         </p>
       </div>

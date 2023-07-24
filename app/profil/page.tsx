@@ -17,9 +17,9 @@ export default function Profile() {
       
       <div className='scrollWrapper'>
           {/* TODO: SCROLL SETUP! */}
-          <ProfilePageCharacterElem />
-          <ProfilePageCharacterElem />
-          <ProfilePageCharacterElem />
+          <ProfilePageCharacterElem inEditorMode={false} />
+          <ProfilePageCharacterElem inEditorMode={false} />
+          <ProfilePageCharacterElem inEditorMode={false} />
       </div>
     </main>
   )
