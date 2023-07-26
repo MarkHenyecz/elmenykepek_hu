@@ -13,7 +13,7 @@ const CharacterModal = ({ close }: Props) => {
             className='characterModal' 
             onClick={(e) => (e.target as HTMLDivElement).className == 'characterModal' ? close() : undefined}
         >
-            <ProfilePageCharacterElem inEditorMode={true} />
+            <ProfilePageCharacterElem inEditorMode={true} close={close} />
         </div>
     )
 }

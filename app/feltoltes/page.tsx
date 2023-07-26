@@ -21,7 +21,7 @@ export default function LogEditor() {
 
   return (
     <main className='upload'>
-      {isModalOpen ? <CharacterModal close={() => setIsModalOpen(false)} /> : null}
+      {isModalOpen ? <CharacterModal close={() => {setIsModalOpen(false); getData();}} /> : null}
 
       <input type="text" placeholder='Album címe...' />
 
