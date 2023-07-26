@@ -39,6 +39,22 @@ main.upload {
         width: calc(100% - 4vh);
         min-height: 330px;
         background-color: $color-background-1;
+        padding: 2vh;
+
+        display: grid;
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+        justify-items: center;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2vh;
+
+        cursor: pointer;
+
+        img:last-of-type:nth-child(odd) {
+            position: relative;
+            left: 50%;
+        }
 
         &.empty {
             display: flex;
@@ -50,6 +66,16 @@ main.upload {
             p {
                 font-size: 38px;
             }
+
+            img {
+                left: 0 !important;
+            }
         }
+    }
+
+    button {
+        padding: 2vh;
+        font-size: 40px;
+        background-color: $color-background-1;
     }
 }
