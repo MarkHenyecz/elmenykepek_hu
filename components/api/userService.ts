@@ -1,5 +1,8 @@
+import { User } from "../interfaces/user.interface"
 import network from "./network"
 
+
+const GET_MY_PROFILE = 'user'
 
 const LOGIN = 'user/login'
 const REGISTER = 'user/register'
@@ -7,4 +10,6 @@ const REGISTER = 'user/register'
 export const userService = {
     tryLogin: (username: string, password: string) => network.post<{token: string}>(LOGIN, {name: username, password: password}),
     tryRegister: (email:string, username: string, password: string) => network.post<string>(REGISTER, {email: email, name: username, password: password}),
+
+    getMyProfile: () => network.get<User>(GET_MY_PROFILE),
 }

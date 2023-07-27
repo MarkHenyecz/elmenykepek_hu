@@ -5,17 +5,19 @@ import AvatarElem from '../avatar/avatar';
 import LoaderElem from '../loader/loader';
 import { fileService } from '../api/fileService';
 import { characterService } from '../api/characterService';
+import { Character } from '../interfaces/character.interface';
 
 interface Props {
+    character?: Character
     inEditorMode: boolean
     close?: () => void
 }
 
-export default function ProfilePageCharacterElem({ close, inEditorMode = false }: Props) {
-    const [newName, setNewName] = useState('')
+export default function ProfilePageCharacterElem({ character, close, inEditorMode = false }: Props) {
+    const [newName, setNewName] = useState(character ? character.name : '')
     const [isLoading, setIsLoading] = useState(false)
     const [file, setFile] = useState<File>();
-    const [fileData, setFileData] = useState<string | ArrayBuffer | null>(null);
+    const [fileData, setFileData] = useState<string | ArrayBuffer | null>(character?.profile_picture ? character.profile_picture?.url : null);
     const fileRef = useRef<HTMLInputElement>(null);
     const isFileSet = file && typeof fileData == "string";
 
@@ -52,6 +54,26 @@ export default function ProfilePageCharacterElem({ close, inEditorMode = false }
         setIsLoading(false)
     }
 
+    const getDateString = (date: Date) => {
+        let formattedTime = '';
+
+        const yesterDay = new Date();
+        yesterDay.setDate(yesterDay.getDate() - 1);
+        
+        const older = new Date();
+        older.setDate(older.getDate() - 2);
+        
+        if(date.getTime() < older.getTime()) {
+            formattedTime = `${date.getFullYear()}.${date.getMonth()}.${date.getDate()}`;
+        } else if(date.getTime() < yesterDay.getTime()) {
+            formattedTime = "tegnap"
+        } else {
+            formattedTime = "ma"
+        }
+
+        return formattedTime;
+    }
+
     return (
         <div className='characterElem'>
             {inEditorMode ?
@@ -73,13 +95,24 @@ export default function ProfilePageCharacterElem({ close, inEditorMode = false }
             </>
             : 
             <>
-                <AvatarElem width={150} height={150} />
-                <h1>Gino Rivers</h1>
-                <h2>Feltöltések:</h2>
-                <p>Drug Dealin’ vol 1 - ma</p>
-                <p>NNI baromkodások vol 8999 - tegnap</p>
-                <p>NNI baromkodások vol 8999... - 1 hónapja</p>
-                <p>+ további 3 poszt</p>
+                <AvatarElem 
+                icon={character?.profile_picture?.url} 
+                centerIcon={character?.profile_picture?.url ? true : false} 
+                width={150} 
+                height={150} />
+                <h1>{character?.name}</h1>
+
+                {character?.posts ? 
+                <>
+                    <h2>Feltöltések:</h2>
+                    {character.posts.filter((_, key) => key < 3).map(post => 
+                        <p>{post.title} - {getDateString(new Date(post.created_at))}</p>
+                    )}
+                    {character.posts.length > 3 ? 
+                    <p>+ további {character.posts.length - 3} poszt</p>
+                    : null}
+                </>
+                : null}
             </>}
         </div>
     )
