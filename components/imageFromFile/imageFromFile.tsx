@@ -4,7 +4,7 @@ interface Props {
     file: File
 }
 
-export default ({file}: Props) => {
+export default function ImageFromFile ({file}: Props) {
     const [image, setImage] = useState('')
 
     const getBase64 = () => {

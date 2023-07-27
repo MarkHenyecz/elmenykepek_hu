@@ -5,7 +5,6 @@ import AvatarElem from '../avatar/avatar';
 import HeartElem from '../heart/heart';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { Post } from '../interfaces/post.interface';
-import useOnScreen from '../providers/onScreenProvider';
 
 interface Props {
     post?: Post
@@ -23,7 +22,7 @@ export default function PostElem({ isLoading = false, post, onVisible }: Props) 
     const [images, setImages] = useState<GalleryItem[]>([])
 
     const ref = useRef<HTMLDivElement>(null)
-    const isVisible = useOnScreen(ref)
+    const isVisible = false
 
     useEffect(() => {
         console.log(post);

@@ -41,7 +41,7 @@ export default function Profile() {
         <div className='scrollWrapper'>
             {/* TODO: SCROLL SETUP! */}
             {user.characters.map(character => 
-              <ProfilePageCharacterElem character={character} inEditorMode={false} />
+              <ProfilePageCharacterElem key={character.id} character={character} inEditorMode={false} />
             )}
         </div>
       </>

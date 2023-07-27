@@ -106,7 +106,7 @@ export default function ProfilePageCharacterElem({ character, close, inEditorMod
                 <>
                     <h2>Feltöltések:</h2>
                     {character.posts.filter((_, key) => key < 3).map(post => 
-                        <p>{post.title} - {getDateString(new Date(post.created_at))}</p>
+                        <p key={post.slug}>{post.title} - {getDateString(new Date(post.created_at))}</p>
                     )}
                     {character.posts.length > 3 ? 
                     <p>+ további {character.posts.length - 3} poszt</p>
