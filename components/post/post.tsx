@@ -3,33 +3,63 @@ import Gallery from 'react-photo-gallery';
 import '../../components/scss/post.scss'
 import AvatarElem from '../avatar/avatar';
 import HeartElem from '../heart/heart';
-import { useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
+import { Post } from '../interfaces/post.interface';
+import useOnScreen from '../providers/onScreenProvider';
 
+interface Props {
+    post?: Post
+    isLoading?: boolean 
+    onVisible?: () => void
+}
 
-export default function PostElem() {
-    const [isLoading, setIsLoading] = useState(false)
-    const [images, setImages] = useState([
-        {src: 'https://henyeczmark.hu/seemta/Samuel_White/ujsagiro1/1.png', width: 800, height: 600},
-        {src: 'https://henyeczmark.hu/seemta/Samuel_White/ujsagiro1/2.png', width: 800, height: 600},
-        {src: 'https://henyeczmark.hu/seemta/Samuel_White/ujsagiro1/3.png', width: 800, height: 600},
-        {src: 'https://henyeczmark.hu/seemta/Samuel_White/ujsagiro1/4.png', width: 800, height: 600},
-    ])
+interface GalleryItem {
+    src: string;
+    width: number;
+    height: number;
+}
 
+export default function PostElem({ isLoading = false, post, onVisible }: Props) {
+    const [images, setImages] = useState<GalleryItem[]>([])
+
+    const ref = useRef<HTMLDivElement>(null)
+    const isVisible = useOnScreen(ref)
+
+    useEffect(() => {
+        console.log(post);
+        
+        setImages(post?.images ? post?.images.map(item => {
+            return {
+                src: item.image.url,
+                width: 800,
+                height: 600
+            }
+        }) : [])
+    }, [post])
+
+    useEffect(() => {
+        if(isVisible && onVisible)
+            onVisible()
+    }, [isVisible])
 
     return (
-        <div className={`post ${isLoading ? 'skeleton' : ''}`}>
+        <div className={`post ${isLoading ? 'skeleton' : ''}`} ref={ref} >
             <div className='post__userInfo'>
                 <div className='avatarWrapper'>
-                    <AvatarElem height={120} width={120} />
+                    <AvatarElem 
+                    icon={post?.character.profile_picture?.url}
+                    centerIcon={typeof post?.character.profile_picture?.url == "string"}
+                    height={120} 
+                    width={120} />
                 </div>
                 <div className='characterName'>
                     <p>
-                        Leroy Rowland
+                        {post?.character.name}
                     </p>
                 </div>
                 <div className='albumName'>
                     <p>
-                        Drug dealin&apos; vol 1
+                        {post?.title}
                     </p>
                 </div>
             </div>
@@ -42,7 +72,7 @@ export default function PostElem() {
 
             <div className='post__likeSection'>
                 <div className='post__likeSection__likes'>
-                    <HeartElem />
+                    {/* <HeartElem /> */}
                 </div>
             </div>
         </div>
