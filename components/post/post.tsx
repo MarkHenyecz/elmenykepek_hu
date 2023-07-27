@@ -5,6 +5,8 @@ import AvatarElem from '../avatar/avatar';
 import HeartElem from '../heart/heart';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { Post } from '../interfaces/post.interface';
+import useOnScreen from '../providers/onScreenProvider';
+import { InView, useInView } from 'react-intersection-observer';
 
 interface Props {
     post?: Post
@@ -20,9 +22,7 @@ interface GalleryItem {
 
 export default function PostElem({ isLoading = false, post, onVisible }: Props) {
     const [images, setImages] = useState<GalleryItem[]>([])
-
-    const ref = useRef<HTMLDivElement>(null)
-    const isVisible = false
+    const { ref, inView } = useInView({ triggerOnce: true });
 
     useEffect(() => {
         console.log(post);
@@ -37,9 +37,9 @@ export default function PostElem({ isLoading = false, post, onVisible }: Props) 
     }, [post])
 
     useEffect(() => {
-        if(isVisible && onVisible)
-            onVisible()
-    }, [isVisible])
+        if(inView && onVisible)
+            onVisible();
+    }, [inView])
 
     return (
         <div className={`post ${isLoading ? 'skeleton' : ''}`} ref={ref} >
