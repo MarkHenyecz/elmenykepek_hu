@@ -19,14 +19,16 @@ export const useAuthStore = create<AuthStore>((set) => ({
     validate: async () => {
         const cacheToken = localStorage.getItem('token')
 
-        if(cacheToken) {
+        if(cacheToken && cacheToken != '') {
             try {
                 const userData = userService.getMyProfile();
 
                 if((await userData).data.id) {
                     set({ isLoggedIn: true, token: cacheToken })
                 }
-            } catch {}
+            } catch {
+                localStorage.setItem('token', '')
+            }
         }
     }
 }))
