@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { navBarItems } from "./header.variables";
 import { NavBarItem } from "./header.interface";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import AvatarElem from "../avatar/avatar";
 import { useAuthStore } from "../stores/authStore";
@@ -28,6 +28,12 @@ const NavBarElem = ({ item, openSearchBar }: { item: NavBarItem, openSearchBar: 
 const Header = () => {
     const [searchBarOpen, setSearchBarOpen] = useState(false)
     const authStore = useAuthStore()
+
+    useEffect(() => {
+        if(!authStore.isLoggedIn) {
+            authStore.validate()
+        }
+    }, [authStore])
 
     return (
     <header>
