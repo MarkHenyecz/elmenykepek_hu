@@ -27,8 +27,6 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
     const { ref, inView } = useInView({ triggerOnce: true });
 
     useEffect(() => {
-        console.log(post);
-        
         setImages(post?.images ? post?.images.map(item => {
             return {
                 src: item.image.url,
