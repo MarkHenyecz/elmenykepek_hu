@@ -3,11 +3,14 @@ import Gallery from 'react-photo-gallery';
 import '../../components/scss/post.scss'
 import AvatarElem from '../avatar/avatar';
 import HeartElem from '../heart/heart';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import { Post } from '../interfaces/post.interface';
 import useOnScreen from '../providers/onScreenProvider';
 import { InView, useInView } from 'react-intersection-observer';
 import Link from 'next/link';
+import { useAuthStore } from '../stores/authStore';
+import Image from 'next/image';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 interface Props {
     post?: Post
@@ -24,7 +27,19 @@ interface GalleryItem {
 
 export default function PostElem({ isLoading = false, hideCharacter = false, post, onVisible }: Props) {
     const [images, setImages] = useState<GalleryItem[]>([])
+    const [copied, setCopied] = useState(false)
     const { ref, inView } = useInView({ triggerOnce: true });
+    const authStore = useAuthStore();
+    const uploadedByUser = post?.character.user.id == authStore.userId;
+    const bbCode = useMemo(() => {
+        let text = "";
+
+        post?.images.forEach(img => {
+            text += `[IMG]${img.image.url}[/IMG]\n`
+        });
+
+        return text;
+    }, [post?.images])
 
     useEffect(() => {
         setImages(post?.images ? post?.images.map(item => {
@@ -82,8 +97,26 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
 
             <div className='post__likeSection'>
                 <div className='post__likeSection__likes'>
-                    {/* <HeartElem /> */}
+                    <HeartElem 
+                    id={post?.slug ?? ''}
+                    type="post"
+                    disabled={uploadedByUser} />
                 </div>
+
+                {uploadedByUser ?
+                <CopyToClipboard
+                text={bbCode}
+                onCopy={() => setCopied(true)}
+                >
+                    <Image
+                        style={{cursor: 'pointer'}}
+                        src={copied ? '/icons/clipboard.svg' : `/icons/file-code.svg`}
+                        alt='BB kód másolása'
+                        width={30}
+                        height={30}
+                    />
+                </CopyToClipboard>
+                : null}
             </div>
         </div>
     )
