@@ -100,7 +100,10 @@ export default function ProfilePageCharacterElem({ character, close, inEditorMod
                 icon={character?.profile_picture?.url} 
                 centerIcon={character?.profile_picture?.url ? true : false} 
                 width={150} 
-                height={150} />
+                height={150} 
+                iconWidth={character?.profile_picture?.url ? 150 : undefined}
+                iconHeight={character?.profile_picture?.url ? 150 : undefined}
+                />
                 <h1>{character?.name}</h1>
 
                 {character?.posts ? 

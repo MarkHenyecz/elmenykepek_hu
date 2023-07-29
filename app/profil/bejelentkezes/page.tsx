@@ -20,7 +20,7 @@ export default function Login() {
     try {
       const response = await userService.tryLogin(email, password)
       localStorage.setItem('token', response.data.token)
-      authStore.setState(true, response.data.token)
+      await authStore.validate()
       router.push('/profil')
     } catch {}
 

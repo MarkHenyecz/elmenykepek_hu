@@ -8,7 +8,7 @@ import { Analytics } from '@vercel/analytics/react';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Elményképek',
+  title: 'Élményképek',
   description: 'Élményképek feltöltésére kitalált oldal, hogy a magyar szerepjátékot egy új szintre emeljük. Karakterek kezelése egy helyen, automata log szerkesztő és még sok más.',
 }
 

@@ -4,17 +4,19 @@ import { userService } from '../api/userService'
 
 
 interface AuthStore {
+    userId: number
     token: string
     isLoggedIn: boolean
-    setState: (isLoggedIn: boolean, token: string) => void
+    setState: (userId: number, isLoggedIn: boolean, token: string) => void
     validate: () => Promise<void>
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
+    userId: 0,
     token: '',
     isLoggedIn: false,
 
-    setState: (isLoggedIn: boolean, token: string) => set(() => ({ isLoggedIn: isLoggedIn, token: token })),
+    setState: (userId: number, isLoggedIn: boolean, token: string) => set(() => ({ userId: userId, isLoggedIn: isLoggedIn, token: token })),
 
     validate: async () => {
         const cacheToken = localStorage.getItem('token')
@@ -23,8 +25,9 @@ export const useAuthStore = create<AuthStore>((set) => ({
             try {
                 const userData = userService.getMyProfile();
 
-                if((await userData).data.id) {
-                    set({ isLoggedIn: true, token: cacheToken })
+                const userId =(await userData).data.id;
+                if(userId) {
+                    set({ userId: userId, isLoggedIn: true, token: cacheToken })
                 }
             } catch {
                 localStorage.setItem('token', '')

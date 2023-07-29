@@ -69,12 +69,10 @@
 
     &__likeSection {
         display: flex;
-        justify-content: center;
-
-        &__likes {
-            width: 820px;
-            margin-top: 1vh;
-        }
+        justify-content: space-between;
+        align-items: center;
+        gap: 2vh;
+        margin: 2vh 2vh 0 2vh;
     }
 
     &.skeleton {

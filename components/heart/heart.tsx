@@ -1,14 +1,26 @@
 "use client";
 import Image from 'next/image';
 import '../../components/scss/heart.scss'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+interface Props {
+  id: number | string
+  type: "post"
+  disabled?: boolean
+}
 
-export default function HeartElem() {
+export default function HeartElem({ id, type, disabled = false }: Props) {
   const [isLiked, setIsLiked] = useState(false)
   
+  useEffect(() => {
+
+  }, [type, id])
+
   return (
-    <div className='heart'>
+    <div 
+      className='heart'
+      style={disabled ? {cursor: 'not-allowed'} : {}}
+    >
       <Image 
         src={`/icons/heart-icon${isLiked ? "-solid" : ""}.svg`}
         alt='Tetszik'
