@@ -84,7 +84,7 @@ export default function ProfilePageCharacterElem({ character, close, inEditorMod
                         centerIcon={!isFileSet}
                         width={150} 
                         height={150} 
-                        iconWidht={isFileSet ? 150 : 80} 
+                        iconWidth={isFileSet ? 150 : 80} 
                         iconHeight={isFileSet ? 150 : 80} 
                         icon={isFileSet ? fileData : '/icons/upload-icon.svg'} 
                         onClick={() => fileRef.current?.click()}

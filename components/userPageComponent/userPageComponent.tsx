@@ -15,7 +15,10 @@ const UserPageComponent = ({ user }: Props) => {
             icon={user?.profile_picture?.url} 
             centerIcon={typeof user?.profile_picture == 'object'} 
             width={190} 
-            height={190} />
+            height={190} 
+            iconWidth={!user?.profile_picture?.url ? 140 : undefined}
+            iconHeight={!user?.profile_picture?.url ? 140 : undefined}
+            />
             <h1>{user?.name}</h1>
             {user ? 
             <>
