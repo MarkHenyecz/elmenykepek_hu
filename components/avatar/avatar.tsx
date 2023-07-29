@@ -9,13 +9,13 @@ export interface Avatar {
     icon?: string
     width?: number
     height?: number
-    iconWidht?: number
+    iconWidth?: number
     iconHeight?: number
     centerIcon?: boolean
 }
 
-export default function AvatarElem({ onClick, username, icon, width, height, iconWidht, iconHeight, centerIcon = false }: Avatar) {
-  const iconTrueWidth = (iconWidht ? iconWidht : (width ? (width-30) : 35))
+export default function AvatarElem({ onClick, username, icon, width, height, iconWidth, iconHeight, centerIcon = false }: Avatar) {
+  const iconTrueWidth = (iconWidth ? iconWidth : (width ? (width-30) : 35))
   const iconTrueHeight = (iconHeight ? iconHeight : (height ? (height-30) : 35))
 
 
