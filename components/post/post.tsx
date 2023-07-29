@@ -54,7 +54,10 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
                         icon={post?.character.profile_picture?.url}
                         centerIcon={typeof post?.character.profile_picture?.url == "string"}
                         height={120} 
-                        width={120} />
+                        width={120} 
+                        iconHeight={post?.character.profile_picture?.url ? 120 : undefined}
+                        iconWidth={post?.character.profile_picture?.url ? 120 : undefined}
+                        />
                     </div>
                     <div className='characterName'>
                         <p>
