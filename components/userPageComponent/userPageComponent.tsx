@@ -23,7 +23,7 @@ const UserPageComponent = ({ user }: Props) => {
             {user ? 
             <>
                 <div className='divider' />
-                <h1>Karakterek</h1>
+                <h1>Karakter{user.characters.length > 1 ? 'ek' : ''}</h1>
                 
                 <div className='scrollWrapper'>
                     {user.characters.map(character => 
