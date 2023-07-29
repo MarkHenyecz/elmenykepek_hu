@@ -7,12 +7,21 @@
     display: flex;
     flex-direction: column;
 
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+
     &:not(:first-child) {
         margin-top: 2vh;
     }
 
     * {
         transition: 1s ease-in-out;
+    }
+
+    h1 {
+        font-size: 45px;
+        text-align: center;
+        margin-bottom: 2vh;
     }
 
     &__userInfo {
@@ -25,7 +34,6 @@
 
         width: fit-content;
         margin: 1vh;
-        margin-top: 2vh;
         font-size: 40px;
         gap: 1vh;
 

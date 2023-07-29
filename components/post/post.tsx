@@ -7,10 +7,12 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 import { Post } from '../interfaces/post.interface';
 import useOnScreen from '../providers/onScreenProvider';
 import { InView, useInView } from 'react-intersection-observer';
+import Link from 'next/link';
 
 interface Props {
     post?: Post
     isLoading?: boolean 
+    hideCharacter?: boolean 
     onVisible?: () => void
 }
 
@@ -20,7 +22,7 @@ interface GalleryItem {
     height: number;
 }
 
-export default function PostElem({ isLoading = false, post, onVisible }: Props) {
+export default function PostElem({ isLoading = false, hideCharacter = false, post, onVisible }: Props) {
     const [images, setImages] = useState<GalleryItem[]>([])
     const { ref, inView } = useInView({ triggerOnce: true });
 
@@ -41,27 +43,35 @@ export default function PostElem({ isLoading = false, post, onVisible }: Props) 
             onVisible();
     }, [inView])
 
+    
     return (
         <div className={`post ${isLoading ? 'skeleton' : ''}`} ref={ref} >
-            <div className='post__userInfo'>
-                <div className='avatarWrapper'>
-                    <AvatarElem 
-                    icon={post?.character.profile_picture?.url}
-                    centerIcon={typeof post?.character.profile_picture?.url == "string"}
-                    height={120} 
-                    width={120} />
+            {!hideCharacter ? 
+            <Link href={`/karakter/${post?.character.id}`}>
+                <div className='post__userInfo'>
+                    <div className='avatarWrapper'>
+                        <AvatarElem 
+                        icon={post?.character.profile_picture?.url}
+                        centerIcon={typeof post?.character.profile_picture?.url == "string"}
+                        height={120} 
+                        width={120} />
+                    </div>
+                    <div className='characterName'>
+                        <p>
+                            {post?.character.name}
+                        </p>
+                    </div>
+                    <div className='albumName'>
+                        <p>
+                            {post?.title}
+                        </p>
+                    </div>
                 </div>
-                <div className='characterName'>
-                    <p>
-                        {post?.character.name}
-                    </p>
-                </div>
-                <div className='albumName'>
-                    <p>
-                        {post?.title}
-                    </p>
-                </div>
-            </div>
+            </Link>
+            : 
+            <h1>
+                {post?.title}
+            </h1>}
 
             <div className='post__imagesWrapper'>
                 <div className='post__imagesWrapper__images'>

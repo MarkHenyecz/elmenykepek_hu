@@ -1,0 +1,13 @@
+@import "variables.scss";
+
+main.characterPage {
+    display: flex;
+    gap: 2vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .characterElem {
+        background-color: $color-background-2;
+    }
+}
