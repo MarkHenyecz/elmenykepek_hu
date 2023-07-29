@@ -6,6 +6,7 @@ import LoaderElem from '../loader/loader';
 import { fileService } from '../api/fileService';
 import { characterService } from '../api/characterService';
 import { Character } from '../interfaces/character.interface';
+import Link from 'next/link';
 
 interface Props {
     character?: Character
@@ -75,45 +76,47 @@ export default function ProfilePageCharacterElem({ character, close, inEditorMod
     }
 
     return (
-        <div className='characterElem'>
-            {inEditorMode ?
-            <>
-                <AvatarElem 
-                    centerIcon={!isFileSet}
-                    width={150} 
-                    height={150} 
-                    iconWidht={isFileSet ? 150 : 80} 
-                    iconHeight={isFileSet ? 150 : 80} 
-                    icon={isFileSet ? fileData : '/icons/upload-icon.svg'} 
-                    onClick={() => fileRef.current?.click()}
-                />
-                <input type="file" ref={fileRef} hidden onChange={(e) => setFile(e.target.files ? e.target.files[0] : undefined)} accept='.png,.jpg,.jpeg,.gif' />
-                <input type="text" placeholder='Karakter neve' value={newName} onChange={(e) => setNewName(e.target.value)} />
-                <button onClick={!isLoading ? () => handleSave() : undefined}>
-                    {!isLoading ? 'Mentés' : <LoaderElem />}
-                </button>
-            </>
-            : 
-            <>
-                <AvatarElem 
-                icon={character?.profile_picture?.url} 
-                centerIcon={character?.profile_picture?.url ? true : false} 
-                width={150} 
-                height={150} />
-                <h1>{character?.name}</h1>
-
-                {character?.posts ? 
+        <Link href={`/karakter/${character?.id}`}>
+            <div className='characterElem'>
+                {inEditorMode ?
                 <>
-                    <h2>Feltöltések:</h2>
-                    {character.posts.filter((_, key) => key < 3).map(post => 
-                        <p key={post.slug}>{post.title} - {getDateString(new Date(post.created_at))}</p>
-                    )}
-                    {character.posts.length > 3 ? 
-                    <p>+ további {character.posts.length - 3} poszt</p>
-                    : null}
+                    <AvatarElem 
+                        centerIcon={!isFileSet}
+                        width={150} 
+                        height={150} 
+                        iconWidht={isFileSet ? 150 : 80} 
+                        iconHeight={isFileSet ? 150 : 80} 
+                        icon={isFileSet ? fileData : '/icons/upload-icon.svg'} 
+                        onClick={() => fileRef.current?.click()}
+                    />
+                    <input type="file" ref={fileRef} hidden onChange={(e) => setFile(e.target.files ? e.target.files[0] : undefined)} accept='.png,.jpg,.jpeg,.gif' />
+                    <input type="text" placeholder='Karakter neve' value={newName} onChange={(e) => setNewName(e.target.value)} />
+                    <button onClick={!isLoading ? () => handleSave() : undefined}>
+                        {!isLoading ? 'Mentés' : <LoaderElem />}
+                    </button>
                 </>
-                : null}
-            </>}
-        </div>
+                : 
+                <>
+                    <AvatarElem 
+                    icon={character?.profile_picture?.url} 
+                    centerIcon={character?.profile_picture?.url ? true : false} 
+                    width={150} 
+                    height={150} />
+                    <h1>{character?.name}</h1>
+
+                    {character?.posts ? 
+                    <>
+                        <h2>Feltöltések:</h2>
+                        {character.posts.filter((_, key) => key < 3).map(post => 
+                            <p key={post.slug}>{post.title} - {getDateString(new Date(post.created_at))}</p>
+                        )}
+                        {character.posts.length > 3 ? 
+                        <p>+ további {character.posts.length - 3} poszt</p>
+                        : null}
+                    </>
+                    : null}
+                </>}
+            </div>
+        </Link>
     )
 }
