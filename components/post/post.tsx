@@ -100,7 +100,7 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
                     <HeartElem 
                     id={post?.id ?? 0}
                     type="post"
-                    // disabled={uploadedByUser || !authStore.isLoggedIn} 
+                    disabled={uploadedByUser || !authStore.isLoggedIn} 
                     />
                 </div>
 

@@ -65,7 +65,7 @@ export default function HeartElem({ id, type, disabled = false }: Props) {
     <div 
       className='heart'
       style={disabled ? {cursor: 'not-allowed'} : {cursor: 'pointer'}}
-      onClick={() => likePost()}
+      onClick={!disabled ? () => likePost() : undefined}
     >
       <Image 
         src={`/icons/heart-icon${isLiked ? "-solid" : ""}.svg`}
