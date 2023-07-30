@@ -98,9 +98,10 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
             <div className='post__likeSection'>
                 <div className='post__likeSection__likes'>
                     <HeartElem 
-                    id={post?.slug ?? ''}
+                    id={post?.id ?? 0}
                     type="post"
-                    disabled={uploadedByUser} />
+                    // disabled={uploadedByUser || !authStore.isLoggedIn} 
+                    />
                 </div>
 
                 {uploadedByUser ?
