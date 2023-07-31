@@ -1,3 +1,4 @@
+import { formatOneRPLog } from "./editor.onerp"
 import { formatSeeMTALog } from "./editor.seemta"
 
 export interface LogEditorOption {
@@ -10,4 +11,8 @@ export const logEditorOptions: LogEditorOption[] = [
         serverName: 'SeeMTA',
         formatLog: formatSeeMTALog
     },
+    {
+        serverName: 'OneRP',
+        formatLog: formatOneRPLog
+    }
 ]

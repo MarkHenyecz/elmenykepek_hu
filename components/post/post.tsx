@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useAuthStore } from '../stores/authStore';
 import Image from 'next/image';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import ImageModal from '../post-image-model/imageModal';
 
 interface Props {
     post?: Post
@@ -19,7 +20,7 @@ interface Props {
     onVisible?: () => void
 }
 
-interface GalleryItem {
+export interface GalleryItem {
     src: string;
     width: number;
     height: number;
@@ -56,6 +57,8 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
             onVisible();
     }, [inView])
 
+    const [selectedImage, setSelectedImage] = useState<string>('')
+
     
     return (
         <div className={`post ${isLoading ? 'skeleton' : ''}`} ref={ref} >
@@ -91,7 +94,7 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
 
             <div className='post__imagesWrapper'>
                 <div className='post__imagesWrapper__images'>
-                    <Gallery photos={images} />
+                    <Gallery photos={images} onClick={(e) => setSelectedImage((e.target as HTMLImageElement).src)} />
                 </div>
             </div>
 
@@ -119,6 +122,8 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
                 </CopyToClipboard>
                 : null}
             </div>
+
+            {selectedImage != "" ? <ImageModal images={images} initialImage={selectedImage} close={() => setSelectedImage('')} /> : null}
         </div>
     )
 }

@@ -1,6 +1,6 @@
 @import 'variables.scss';
 
-.characterModal {
+.characterModal, .imageModal {
     z-index: 10;
     position: fixed;
     left: 0;
@@ -23,6 +23,29 @@
             margin-top: 2vh;
             min-width: 400px;
             text-align: center;
+        }
+    }
+}
+
+.imageModal {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+
+    &__navigation {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 1vh;
+
+        img {
+            transition: .5s ease-in-out border;
+            cursor: pointer;
+
+            &.selected {
+                border: 2px solid $color-accent;
+            }
         }
     }
 }

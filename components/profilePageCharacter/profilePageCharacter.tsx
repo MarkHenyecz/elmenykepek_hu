@@ -40,13 +40,16 @@ export default function ProfilePageCharacterElem({ character, close, inEditorMod
     }, [file])
 
     const handleSave = async () => {
-        if(!file || newName == "") return;
+        if(newName == "") return;
 
         setIsLoading(true)
 
         try {
-            const dbFile = await fileService.uploadFile(file);
-            await characterService.createCharacter(newName, dbFile.data.id)
+            let dbFile;
+            if(file) {
+                dbFile = await fileService.uploadFile(file);
+            }
+            await characterService.createCharacter(newName, dbFile?.data.id)
             
             if(close)
                 close();

@@ -19,7 +19,7 @@ export default function LogEditor() {
 
   useEffect(() => {
     handleLogChange(defaultData, removeDefault)
-  }, [removeDefault])
+  }, [currentEditor, removeDefault])
 
   return (
     <div className='log-editor'>
