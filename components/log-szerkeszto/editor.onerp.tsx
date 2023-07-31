@@ -1,4 +1,4 @@
-export const formatSeeMTALog = (data: string, removeDefault: boolean) => {
+export const formatOneRPLog = (data: string, removeDefault: boolean) => {
     let splitData = data.split('\n')
 
     splitData = splitData.filter(item => 
@@ -11,7 +11,7 @@ export const formatSeeMTALog = (data: string, removeDefault: boolean) => {
     const formattedData: string[] = []
 
     splitData.forEach(line => {
-        const splitData = line.split('[Output] : ');
+        const splitData = line.split('] ');
         const roleplaySide = splitData.length > 1 ? splitData[1] : splitData[0]
 
         if(removeDefault) {
@@ -57,8 +57,15 @@ export const formatSeeMTALog = (data: string, removeDefault: boolean) => {
                 return;
         }
 
-        if(roleplaySide.includes('***')) 
-            formattedData.push(`<p style="color: #c2a2da">${roleplaySide}</p>`)
+        if(roleplaySide.includes('***')) {
+            let data = `<p style="color: #c2a2da">${roleplaySide}</p>`;
+
+            if(roleplaySide.includes('!{}')) {
+                data = `<div style="display: flex;gap: .3rem">${data.replace('!{}', '</p><p style="color: #ffffff"> ')}</div>`;
+            } 
+
+            formattedData.push(data)
+        }
 
         if(roleplaySide.includes('<<')) 
             formattedData.push(`<p style="color: #956cb4">${roleplaySide}</p>`)
@@ -66,11 +73,20 @@ export const formatSeeMTALog = (data: string, removeDefault: boolean) => {
         if(roleplaySide.includes('*') && roleplaySide.includes('((')) 
             formattedData.push(`<p style="color: #ff2850">${roleplaySide}</p>`)
 
-        if(roleplaySide.includes('mondja') && !roleplaySide.includes('[R')) 
-            formattedData.push(`<p style="color: #ffffff">${roleplaySide}</p>`)
-        
-        if(roleplaySide.includes('mondja') && roleplaySide.includes('[R')) 
-            formattedData.push(`<p style="color: #00CED1">${roleplaySide}</p>`)
+        if(roleplaySide.includes('mondja')) {
+            let data = `<div style="display: flex;gap: .3rem"><p style="color: #ffffff">${roleplaySide}</p></div>`;
+
+            data.split('*').forEach((element, key) => {
+                if (key % 2 == 0) {
+                    data = data.replace(element, `${element}</p><p style="color: #c2a2da">`)
+                } else {
+                    console.log(element);
+                    data = data.replace(element+"*", `${element+"*"}</p><p style="color: #ffffff">`)
+                }
+            });
+
+            formattedData.push(data)
+        }
     });
 
 
