@@ -61,13 +61,13 @@ export default function LogEditor() {
           <p>Szöveg szélesség:</p>
           <select onChange={e => setSize(e.target.value)}>
             {Object.keys(possibleSizes).map(key => 
-              <option value={key} selected={key == size}>{possibleSizes[key].toString()}</option>
+              <option key={key} value={key} selected={key == size}>{possibleSizes[key].toString()}</option>
             )}
           </select>
           <p>Szöveg méret:</p>
           <select onChange={e => setTextSize(e.target.value)}>
             {Object.keys(possibleTextSizes).map(key => 
-              <option value={key} selected={key == textSize}>{possibleTextSizes[key].toString()}px</option>
+              <option key={key} value={key} selected={key == textSize}>{possibleTextSizes[key].toString()}px</option>
             )}
           </select>
         </div>

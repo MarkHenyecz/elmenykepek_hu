@@ -51,6 +51,7 @@ const ImageModal = ({ images, initialImage, close }: Props) => {
                 />
                 {images.map(img => 
                     <Image 
+                        key={img.src}
                         src={img.src}
                         alt={img.src}
                         height={100}
