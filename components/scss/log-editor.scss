@@ -3,15 +3,17 @@
 .log-editor {
     background-color: $color-background-2;
     min-height: 80vh;
+    width: 1600px;
+    transition: .5s;
 
     &.big {
-        width: calc(1550px + 2vh);
+        max-width: calc(1550px + 2vh);
     }
     &.normal {
-        width: calc(1200px + 2vh);
+        max-width: calc(1200px + 2vh);
     }
     &.small {
-        width: calc(1000px + 2vh);
+        max-width: calc(1000px + 2vh);
     }
 
     display: flex;
