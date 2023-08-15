@@ -67,13 +67,13 @@ export const formatOneRPLog = (data: string, removeDefault: boolean) => {
             formattedData.push(data)
         }
 
-        if(roleplaySide.includes('<<')) 
+        if(roleplaySide.includes('>>')) 
             formattedData.push(`<p style="color: #956cb4">${roleplaySide}</p>`)
 
         if(roleplaySide.includes('*') && roleplaySide.includes('((')) 
             formattedData.push(`<p style="color: #ff2850">${roleplaySide}</p>`)
 
-        if(roleplaySide.includes('mondja')) {
+        if(roleplaySide.includes('mondja') || roleplaySide.includes('ordítja') || roleplaySide.includes('suttogja')) {
             let data = `<div style="display: flex;gap: .3rem"><p style="color: #ffffff">${roleplaySide}</p></div>`;
 
             data.split('*').forEach((element, key) => {
