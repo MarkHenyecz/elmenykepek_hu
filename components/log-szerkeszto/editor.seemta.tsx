@@ -60,13 +60,14 @@ export const formatSeeMTALog = (data: string, removeDefault: boolean) => {
         if(roleplaySide.includes('***')) 
             formattedData.push(`<p style="color: #c2a2da">${roleplaySide}</p>`)
 
-        if(roleplaySide.includes('<<')) 
+        if(roleplaySide.includes('>>')) 
             formattedData.push(`<p style="color: #956cb4">${roleplaySide}</p>`)
 
         if(roleplaySide.includes('*') && roleplaySide.includes('((')) 
             formattedData.push(`<p style="color: #ff2850">${roleplaySide}</p>`)
 
-        if(roleplaySide.includes('mondja') && !roleplaySide.includes('[R')) 
+        if( roleplaySide.includes('mondja') && !roleplaySide.includes('[R') ||
+            roleplaySide.includes('ordítja:')) 
             formattedData.push(`<p style="color: #ffffff">${roleplaySide}</p>`)
         
         if(roleplaySide.includes('mondja') && roleplaySide.includes('[R')) 
