@@ -2,8 +2,9 @@ export const formatSeeMTALog = (data: string, removeDefault: boolean) => {
     let splitData = data.split('\n')
 
     splitData = splitData.filter(item => 
+        item.includes('ordítja') || // shout
         item.includes('***') || // me
-        item.includes('<<') || // ame
+        item.includes('>>') || // ame
         (item.includes('*') && item.includes('((')) || // do
         item.includes('mondja') //say
     ) 
