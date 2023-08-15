@@ -2,8 +2,11 @@ export const formatOneRPLog = (data: string, removeDefault: boolean) => {
     let splitData = data.split('\n')
 
     splitData = splitData.filter(item => 
+        item.includes('suttogja') || // whisper
+        item.includes('ordítja') || // shout
+        item.includes('kiabálja') || // shout
         item.includes('***') || // me
-        item.includes('<<') || // ame
+        item.includes('>>') || // ame
         (item.includes('*') && item.includes('((')) || // do
         item.includes('mondja') //say
     ) 
@@ -67,21 +70,34 @@ export const formatOneRPLog = (data: string, removeDefault: boolean) => {
             formattedData.push(data)
         }
 
-        if(roleplaySide.includes('<<')) 
+        if(roleplaySide.includes('>>')) 
             formattedData.push(`<p style="color: #956cb4">${roleplaySide}</p>`)
 
         if(roleplaySide.includes('*') && roleplaySide.includes('((')) 
             formattedData.push(`<p style="color: #ff2850">${roleplaySide}</p>`)
 
-        if(roleplaySide.includes('mondja')) {
+        if(roleplaySide.includes('mondja') || roleplaySide.includes('ordítja')) {
             let data = `<div style="display: flex;gap: .3rem"><p style="color: #ffffff">${roleplaySide}</p></div>`;
 
             data.split('*').forEach((element, key) => {
                 if (key % 2 == 0) {
                     data = data.replace(element, `${element}</p><p style="color: #c2a2da">`)
                 } else {
-                    console.log(element);
                     data = data.replace(element+"*", `${element+"*"}</p><p style="color: #ffffff">`)
+                }
+            });
+
+            formattedData.push(data)
+        }
+
+        if(roleplaySide.includes('kiabálja') || roleplaySide.includes('suttogja')) {
+            let data = `<div style="display: flex;gap: .3rem"><p style="color: #afafaf">${roleplaySide}</p></div>`;
+
+            data.split('*').forEach((element, key) => {
+                if (key % 2 == 0) {
+                    data = data.replace(element, `${element}</p><p style="color: #c2a2da">`)
+                } else {
+                    data = data.replace(element+"*", `${element+"*"}</p><p style="color: #afafaf">`)
                 }
             });
 
