@@ -68,7 +68,9 @@ export default function ProfilePageCharacterElem({ character, close, inEditorMod
         older.setDate(older.getDate() - 2);
         
         if(date.getTime() < older.getTime()) {
-            formattedTime = `${date.getFullYear()}.${date.getMonth()}.${date.getDate()}`;
+            const month = date.getMonth()+1;
+            const day = date.getDate();
+            formattedTime = `${date.getFullYear()}.${month > 9 ? month : '0'+month}.${day > 9 ? day : '0'+day}`;
         } else if(date.getTime() < yesterDay.getTime()) {
             formattedTime = "tegnap"
         } else {
