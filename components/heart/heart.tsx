@@ -52,7 +52,7 @@ export default function HeartElem({ id, type, disabled = false, defaultLikes, de
   }
 
   useEffect(() => {
-    if(id == null)
+    if(defaultLikes == null)
       getLikeData()
     else
       setIsLoading(false)
