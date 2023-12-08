@@ -5,6 +5,8 @@ export interface Post {
     id: number
     title: string
     slug: string
+    likes: number
+    isLiked: boolean
     character: Character
     created_at: string
     images: { image: File }[]

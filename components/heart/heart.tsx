@@ -10,11 +10,13 @@ interface Props {
   id: number
   type: "post"
   disabled?: boolean
+  defaultLikes?: number
+  defaultLiked?: boolean
 }
 
-export default function HeartElem({ id, type, disabled = false }: Props) {
-  const [isLiked, setIsLiked] = useState(false)
-  const [likes, setLikes] = useState(0)
+export default function HeartElem({ id, type, disabled = false, defaultLikes, defaultLiked }: Props) {
+  const [isLiked, setIsLiked] = useState(defaultLiked ?? false)
+  const [likes, setLikes] = useState(defaultLikes)
   const [isLoading, setIsLoading] = useState(true)
   
   const likePost = async () => {
@@ -50,7 +52,10 @@ export default function HeartElem({ id, type, disabled = false }: Props) {
   }
 
   useEffect(() => {
-    getLikeData()
+    if(defaultLikes == null)
+      getLikeData()
+    else
+      setIsLoading(false)
   }, [type, id])
 
   if(isLoading) {
