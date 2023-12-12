@@ -12,6 +12,7 @@ import { useAuthStore } from '../stores/authStore';
 import Image from 'next/image';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ImageModal from '../post-image-model/imageModal';
+import ToolTip from '../tooltip';
 
 interface Props {
     post?: Post
@@ -110,18 +111,22 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
                 </div>
 
                 {uploadedByUser ?
-                <CopyToClipboard
-                text={bbCode}
-                onCopy={() => setCopied(true)}
+                <ToolTip 
+                    message={copied ? 'Kimásolva' : 'A BB kód másolásához kattints ide'}
                 >
-                    <Image
-                        style={{cursor: 'pointer'}}
-                        src={copied ? '/icons/clipboard.svg' : `/icons/file-code.svg`}
-                        alt='BB kód másolása'
-                        width={30}
-                        height={30}
-                    />
-                </CopyToClipboard>
+                    <CopyToClipboard
+                    text={bbCode}
+                    onCopy={() => setCopied(true)}
+                    >
+                        <Image
+                            style={{cursor: 'pointer'}}
+                            src={copied ? '/icons/clipboard.svg' : `/icons/file-code.svg`}
+                            alt='BB kód másolása'
+                            width={30}
+                            height={30}
+                        />
+                    </CopyToClipboard>
+                </ToolTip>
                 : null}
             </div>
 
