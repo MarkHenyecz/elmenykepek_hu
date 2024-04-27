@@ -16,12 +16,16 @@
         max-width: calc(1000px + 2vh);
     }
 
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 0fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 
     &__leftSide {
         display: flex;
         flex-direction: column;
-        width: 50%;
+        width: 100%;
         align-items: center;
 
         select {
@@ -44,7 +48,7 @@
     }
 
     &__rightSide {
-        width: 50%;
+        width: 100%;
         padding: 1vh;
         
         display: flex;
@@ -89,6 +93,22 @@
             p.small {
                 font-size: 10px;
             }
+        }
+    }
+
+    &__middle {
+        grid-area: 2 / 1 / 3 / 3;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+            background-color: $color-background-1;
+            margin: 1vh;
+            text-align: center;
+            padding: 2vh;
+            font-size: 25px;
         }
     }
 }

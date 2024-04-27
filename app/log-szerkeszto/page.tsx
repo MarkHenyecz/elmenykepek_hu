@@ -2,8 +2,9 @@
 import { LogEditorOption, logEditorOptions } from '@/components/log-szerkeszto/editor.variables';
 import '../../components/scss/log-editor.scss'
 import Image from 'next/image'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import CheckBox from '@/components/checkbox';
+import { generateImageFromDomElement } from '@/components/log-szerkeszto/image-generator';
 
 
 export default function LogEditor() {
@@ -26,6 +27,8 @@ export default function LogEditor() {
     'normal': 'Normál',
     'big': 'Nagy',
   }
+
+  const logRef = useRef(null);
 
   const handleLogChange = (data: string, removeDefault: boolean) => {
     setDefaultData(data)
@@ -71,11 +74,16 @@ export default function LogEditor() {
             )}
           </select>
         </div>
-        <div className='text-area'>
+        <div className='text-area' ref={logRef}>
           {formattedText.map((text, key) => 
             <p key={key} className={textSize} dangerouslySetInnerHTML={{__html: text}}></p>
           )}
         </div>
+      </div>
+      <div className='log-editor__middle'>
+          <button onClick={() => generateImageFromDomElement(logRef.current)}>
+            Letöltés képként
+          </button>
       </div>
     </div>
   )
