@@ -9,15 +9,15 @@ export interface LogEditorOption {
 
 export const logEditorOptions: LogEditorOption[] = [
     {
+        serverName: 'OctansV',
+        formatLog: formatOctansLog
+    },
+    {
         serverName: 'SeeMTA',
         formatLog: formatSeeMTALog
     },
     {
         serverName: 'OneRP',
         formatLog: formatOneRPLog
-    },
-    {
-        serverName: 'OctansV',
-        formatLog: formatOctansLog
     }
 ]
