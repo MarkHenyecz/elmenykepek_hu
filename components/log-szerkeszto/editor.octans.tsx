@@ -69,7 +69,7 @@ export const formatOctansLog = (data: string, removeDefault: boolean) => {
                 return;
         }
 
-        if(roleplaySide.includes('* ') && !roleplaySide.includes('mondja') && !roleplaySide.includes('suttogja')) {
+        if(roleplaySide.includes('* ') && !roleplaySide.includes('((') && !roleplaySide.includes('mondja') && !roleplaySide.includes('suttogja')) {
             formattedData.push(`<p style="color: #c2a2da">${roleplaySide}</p>`)
         }
 
