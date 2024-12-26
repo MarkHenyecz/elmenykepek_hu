@@ -1,6 +1,6 @@
 "use client";
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { likeService } from '../api/likeService';
 import LoaderElem from '../loader/loader';
 
@@ -39,22 +39,22 @@ export default function HeartElem({ id, type, disabled = false, defaultLikes, de
     return "";
   }
 
-  useEffect(() => {
-    const getLikeData = async () => {
-      if(type && id) {
-        const data = await likeService.getLikes(id, getType(type))
-  
-        setIsLiked(data.data.liked)
-        setLikes(data.data.likes)
-        setIsLoading(false)
-      }
-    }
+  const getLikeData = useCallback(async () => {
+    if(type && id) {
+      const data = await likeService.getLikes(id, getType(type))
 
+      setIsLiked(data.data.liked)
+      setLikes(data.data.likes)
+      setIsLoading(false)
+    }
+  }, [type, id])
+
+  useEffect(() => {
     if(defaultLikes == null)
       getLikeData()
     else
       setIsLoading(false)
-  }, [defaultLikes, type, id])
+  }, [defaultLikes, type, id, getLikeData])
 
   if(isLoading) {
     return (

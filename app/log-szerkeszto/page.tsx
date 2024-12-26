@@ -1,7 +1,7 @@
 "use client";
 import { LogEditorOption, logEditorOptions } from '@/components/log-szerkeszto/editor.variables';
 import '../../components/scss/log-editor.scss'
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import CheckBox from '@/components/checkbox';
 import { generateImageFromDomElement } from '@/components/log-szerkeszto/image-generator';
 
@@ -29,14 +29,15 @@ export default function LogEditor() {
 
   const logRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleLogChange = (data: string, removeDefault: boolean) => {
-      setDefaultData(data)
-      setFormattedText(currentEditor?.formatLog(data, removeDefault) ?? [])
-    }
+  const handleLogChange = useCallback((data: string, removeDefault: boolean) => {
+    setDefaultData(data)
+    setFormattedText(currentEditor?.formatLog(data, removeDefault) ?? [])
+  }, [currentEditor])
 
+
+  useEffect(() => {
     handleLogChange(defaultData, removeDefault)
-  }, [currentEditor, defaultData, removeDefault])
+  }, [defaultData, removeDefault, handleLogChange])
 
   return (
     <div className='bg-secondary min-h-[80vh] p-4 log-editor' style={{width: size}}>
