@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { useEffect, useState } from "react"
+import { getBase64 } from "../helpers/getBase64Helper";
 
 interface Props {
     file: File
@@ -7,22 +9,10 @@ interface Props {
 export default function ImageFromFile ({file}: Props) {
     const [image, setImage] = useState('')
 
-    const getBase64 = () => {
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-          if(typeof reader.result == "string")
-            setImage(reader.result);
-        };
-        reader.onerror = function (error) {
-            console.log('Error: ', error);
-        };
-    }
-
     useEffect(() => {
-        getBase64()
+        getBase64(file, setImage)
     }, [file])
 
-    return <img className="w-[300px] md:w-[400px]" src={image} alt={file.name} />
+    return <Image className="w-[300px] md:w-[400px]" src={image} alt={file.name} />
 
 }

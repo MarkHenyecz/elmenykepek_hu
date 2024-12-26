@@ -29,14 +29,14 @@ export default function LogEditor() {
 
   const logRef = useRef<HTMLDivElement>(null);
 
-  const handleLogChange = (data: string, removeDefault: boolean) => {
-    setDefaultData(data)
-    setFormattedText(currentEditor?.formatLog(data, removeDefault) ?? [])
-  }
-
   useEffect(() => {
+    const handleLogChange = (data: string, removeDefault: boolean) => {
+      setDefaultData(data)
+      setFormattedText(currentEditor?.formatLog(data, removeDefault) ?? [])
+    }
+
     handleLogChange(defaultData, removeDefault)
-  }, [currentEditor, removeDefault])
+  }, [currentEditor, defaultData, removeDefault])
 
   return (
     <div className='bg-secondary min-h-[80vh] p-4 log-editor' style={{width: size}}>

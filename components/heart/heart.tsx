@@ -39,22 +39,22 @@ export default function HeartElem({ id, type, disabled = false, defaultLikes, de
     return "";
   }
 
-  const getLikeData = async () => {
-    if(type && id) {
-      const data = await likeService.getLikes(id, getType(type))
-
-      setIsLiked(data.data.liked)
-      setLikes(data.data.likes)
-      setIsLoading(false)
-    }
-  }
-
   useEffect(() => {
+    const getLikeData = async () => {
+      if(type && id) {
+        const data = await likeService.getLikes(id, getType(type))
+  
+        setIsLiked(data.data.liked)
+        setLikes(data.data.likes)
+        setIsLoading(false)
+      }
+    }
+
     if(defaultLikes == null)
       getLikeData()
     else
       setIsLoading(false)
-  }, [type, id])
+  }, [defaultLikes, type, id])
 
   if(isLoading) {
     return (

@@ -13,15 +13,15 @@ interface Props {
 export default function Home({ params }: Props) {
   const [character, setCharacter] = useState<Character | undefined>(undefined)
 
-  const getData = async () => {
-    const pageData = (await characterService.getCharacter(params.id)).data
-
-    setCharacter(pageData)
-  }
-
   useEffect(() => {
+    const getData = async () => {
+      const pageData = (await characterService.getCharacter(params.id)).data
+
+      setCharacter(pageData)
+    }
+
     getData()
-  }, [])
+  }, [params])
 
   if(!character)
     return(

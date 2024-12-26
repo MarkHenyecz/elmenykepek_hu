@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import AvatarElem from '../avatar/avatar';
 import LoaderElem from '../loader/loader';
 import { fileService } from '../api/fileService';
 import { characterService } from '../api/characterService';
 import { Character } from '../interfaces/character.interface';
 import Link from 'next/link';
+import { getBase64 } from '../helpers/getBase64Helper';
 
 interface Props {
     character?: Character
@@ -21,21 +22,10 @@ export default function ProfilePageCharacterElem({ character, close, inEditorMod
     const fileRef = useRef<HTMLInputElement>(null);
     const isFileSet = file && typeof fileData == "string";
 
-    const getBase64 = () => {
+    useEffect(() => {
         if(!file) return;
 
-        let reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = () => {
-            setFileData(reader.result)
-        };
-        reader.onerror = function (error) {
-          console.log('Error: ', error);
-        }
-    }
-
-    useEffect(() => {
-        getBase64()
+        getBase64(file, setFileData as Dispatch<SetStateAction<string>>)
     }, [file])
 
     const handleSave = async () => {

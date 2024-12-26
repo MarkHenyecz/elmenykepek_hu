@@ -56,7 +56,7 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
     useEffect(() => {
         if(inView && onVisible)
             onVisible();
-    }, [inView])
+    }, [inView, onVisible])
 
     const [selectedImage, setSelectedImage] = useState<string>('')
 
