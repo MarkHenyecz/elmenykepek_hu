@@ -1,8 +1,8 @@
 import domtoimage from 'dom-to-image';
 
-
-export const generateImageFromDomElement = (node) => {
-    console.log(node);
+export const generateImageFromDomElement = (node?: Element | null) => {
+    if(!node)
+        return;
 
     domtoimage.toPng(node, { quality: 1, bgcolor: 'transparent' })
         .then(function (blob) {

@@ -28,7 +28,7 @@ export default function LogEditor() {
     'big': 'Nagy',
   }
 
-  const logRef = useRef(null);
+  const logRef = useRef<HTMLDivElement>(null);
 
   const handleLogChange = (data: string, removeDefault: boolean) => {
     setDefaultData(data)
