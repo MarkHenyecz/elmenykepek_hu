@@ -37,7 +37,7 @@ export default function Home() {
     )
 
   return (
-    <main>
+    <main className='flex flex-col gap-4'>
       {posts?.map((post, key) => 
         <PostElem 
         key={post.slug} 

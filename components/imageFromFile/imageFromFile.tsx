@@ -23,6 +23,6 @@ export default function ImageFromFile ({file}: Props) {
         getBase64()
     }, [file])
 
-    return <img src={image} alt={file.name} />
+    return <img className="w-[300px] md:w-[400px]" src={image} alt={file.name} />
 
 }

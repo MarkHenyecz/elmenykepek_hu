@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from 'react';
-import '../../components/scss/profile-character.scss'
 import AvatarElem from '../avatar/avatar';
 import LoaderElem from '../loader/loader';
 import { fileService } from '../api/fileService';
@@ -81,7 +80,7 @@ export default function ProfilePageCharacterElem({ character, close, inEditorMod
     }
 
     return (
-        <div className='characterElem'>
+        <div className='bg-secondary flex flex-col items-center p-4 overflow-hidden gap-4'>
             {inEditorMode ?
             <>
                 <AvatarElem 
@@ -94,13 +93,15 @@ export default function ProfilePageCharacterElem({ character, close, inEditorMod
                     onClick={() => fileRef.current?.click()}
                 />
                 <input type="file" ref={fileRef} hidden onChange={(e) => setFile(e.target.files ? e.target.files[0] : undefined)} accept='.png,.jpg,.jpeg,.gif' />
-                <input type="text" placeholder='Karakter neve' value={newName} onChange={(e) => setNewName(e.target.value)} />
-                <button onClick={!isLoading ? () => handleSave() : undefined}>
+                <input className="bg-primary p-2" type="text" placeholder='Karakter neve' value={newName} onChange={(e) => setNewName(e.target.value)} />
+                <button className='bg-primary p-2'
+                    onClick={!isLoading ? () => handleSave() : undefined}
+                >
                     {!isLoading ? 'Mentés' : <LoaderElem />}
                 </button>
             </>
             : 
-            <Link href={`/karakter/${character?.id}`}>
+            <Link href={`/karakter/${character?.id}`} className='flex flex-col items-center bg-primary p-4 h-[100%] w-[100%]'>
                 <AvatarElem 
                 icon={character?.profile_picture?.url} 
                 centerIcon={character?.profile_picture?.url ? true : false} 

@@ -1,5 +1,4 @@
 "use client";
-import './scss/tooltip.scss'
 
 interface Props {
     children: JSX.Element
@@ -10,10 +9,10 @@ export default function ToolTip({ children, message }: Props) {
     
     return (
     <>
-        <div className={`tooltip-wrapper `}>
+        <div className={`[&:hover>div]:opacity-100`}>
             {children}
 
-            <div className='tooltip-wrapper__tooltip'>
+            <div className='bg-secondary absolute p-1 border-accent border-2 rounded-xl translate-y-2 -translate-x-2/4 text-center  duration-300 opacity-0'>
                 {message}
             </div>
         </div>

@@ -1,5 +1,4 @@
 "use client";
-import '../../components/scss/profile.scss'
 import { useEffect, useState } from 'react';
 import { User } from '@/components/interfaces/user.interface';
 import { userService } from '@/components/api/userService';

@@ -1,6 +1,5 @@
 "use client";
 import Link from 'next/link';
-import '../../../components/scss/registration.scss'
 import { useState } from 'react';
 import LoaderElem from '@/components/loader/loader';
 import { useRouter } from 'next/navigation';
@@ -45,15 +44,15 @@ export default function Registration() {
   }
 
   return (
-    <main className='registration'>
-      <h1>
+    <main className='bg-secondary flex flex-col justify-center items-center p-4 gap-4'>
+      <h1 className='text-3xl'>
         Regisztráció
       </h1>
-      <input type="username" name='username' placeholder='Felhasználónév' value={name} onChange={(e) => setName(e.target.value)} />
-      <input type="email" name='email' placeholder='Email cím' value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" name='password' placeholder='Jelszó' value={password} onChange={(e) => setPassword(e.target.value)} />
-      <input type="password" name='password-again' placeholder='Jelszó mégegyszer' value={passwordAgain} onChange={(e) => setPasswordAgain(e.target.value)} />
-      <button onClick={!isLoading ? () => tryRegister() : undefined}>
+      <input className='bg-primary p-2' type="username" name='username' placeholder='Felhasználónév' value={name} onChange={(e) => setName(e.target.value)} />
+      <input className='bg-primary p-2' type="email" name='email' placeholder='Email cím' value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input className='bg-primary p-2' type="password" name='password' placeholder='Jelszó' value={password} onChange={(e) => setPassword(e.target.value)} />
+      <input className='bg-primary p-2' type="password" name='password-again' placeholder='Jelszó mégegyszer' value={passwordAgain} onChange={(e) => setPasswordAgain(e.target.value)} />
+      <button className='bg-primary p-2' onClick={!isLoading ? () => tryRegister() : undefined}>
         {isLoading ? <LoaderElem /> : 'Regisztráció'}
       </button>
       <Link href={"/profil/bejelentkezes"}>

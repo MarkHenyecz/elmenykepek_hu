@@ -1,9 +1,7 @@
 "use client";
 import Image from 'next/image';
-import '../../components/scss/heart.scss'
 import { useEffect, useState } from 'react';
 import { likeService } from '../api/likeService';
-import Loader2Elem from '../loader/loader2';
 import LoaderElem from '../loader/loader';
 
 interface Props {
@@ -60,7 +58,7 @@ export default function HeartElem({ id, type, disabled = false, defaultLikes, de
 
   if(isLoading) {
     return (
-      <div className='heart'>
+      <div className='heart min-w-[130px]'>
         <LoaderElem />
       </div>
     )
@@ -68,7 +66,7 @@ export default function HeartElem({ id, type, disabled = false, defaultLikes, de
 
   return (
     <div 
-      className='heart'
+      className='flex items-center gap-4 min-w-[130px]'
       style={disabled ? {cursor: 'not-allowed'} : {cursor: 'pointer'}}
       onClick={!disabled ? () => likePost() : undefined}
     >
@@ -79,7 +77,7 @@ export default function HeartElem({ id, type, disabled = false, defaultLikes, de
         height={50}
       />
 
-      <p>
+      <p className='text-3xl'>
         {likes}
       </p>
     </div>

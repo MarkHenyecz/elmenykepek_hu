@@ -2,18 +2,19 @@
 import Image from "next/image"
 import Link from "next/link"
 import { navBarItems } from "./header.variables";
-import { NavBarItem } from "./header.interface";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import AvatarElem from "../avatar/avatar";
 import { useAuthStore } from "../stores/authStore";
+import { NavBarItem } from "./header.interface";
 
 const NavBarElem = ({ item, openSearchBar }: { item: NavBarItem, openSearchBar: () => void }) => {
     const path = usePathname()
+    const selected = useMemo(() => path == item.href, [path, item])
 
     if(item.href != undefined) {
         return <Link href={item.href}>
-                    <p className={path == item.href ? "font-bold" : ""}>
+                    <p className={`text-main text-4xl ${selected ? "font-bold" : ""}`}>
                         {item.name}
                     </p>
                 </Link>
@@ -36,8 +37,8 @@ const Header = () => {
     }, [authStore])
 
     return (
-    <header>
-        <div>
+    <header className="bg-secondary m-4 p-2 flex justify-between max-md:flex-col gap-4">
+        <div className="flex items-center gap-8 max-md:flex-col">
             <Link href="/">
                 <Image 
                     src="/logo.svg"
@@ -49,15 +50,15 @@ const Header = () => {
             </Link>
 
             {searchBarOpen ? 
-                <div className="searchBar">
+                <div className="bg-primary flex gap-4 items-center px-3">
                     <Image 
                     src="/icons/search.svg"
                     alt="Keresés..."
                     width={50}
                     height={50}
                     />
-                    <input type="text" placeholder="Keresés..." />
-                    <p onClick={() => setSearchBarOpen(false)}> X </p>
+                    <input className="text-4xl bg-primary border-none" type="text" placeholder="Keresés..." />
+                    <p className="cursor-pointer" onClick={() => setSearchBarOpen(false)}> X </p>
                 </div> : 
                 <>
                     {navBarItems.map(item => 
@@ -67,7 +68,7 @@ const Header = () => {
             }
         </div>
 
-        <div>
+        <div className="flex items-center gap-4 max-md:justify-center">
             {authStore.isLoggedIn ? 
                 <Link href={"/feltoltes"}>
                     <Image 
