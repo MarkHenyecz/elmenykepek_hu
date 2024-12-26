@@ -56,16 +56,16 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
     useEffect(() => {
         if(inView && onVisible)
             onVisible();
-    }, [inView])
+    }, [inView, onVisible])
 
     const [selectedImage, setSelectedImage] = useState<string>('')
 
     
     return (
-        <div className={`post ${isLoading ? 'skeleton' : ''}`} ref={ref} >
+        <div className={`bg-secondary p-4 flex flex-col ${isLoading ? 'skeleton' : ''}`} ref={ref} >
             {!hideCharacter ? 
             <Link href={`/karakter/${post?.character.id}`}>
-                <div className='post__userInfo'>
+                <div className='flex gap-4'>
                     <div className='avatarWrapper'>
                         <AvatarElem 
                         icon={post?.character.profile_picture?.url}
@@ -76,31 +76,33 @@ export default function PostElem({ isLoading = false, hideCharacter = false, pos
                         iconWidth={post?.character.profile_picture?.url ? 120 : undefined}
                         />
                     </div>
-                    <div className='characterName'>
-                        <p>
-                            {post?.character.name}
-                        </p>
-                    </div>
-                    <div className='albumName'>
-                        <p>
-                            {post?.title}
-                        </p>
+                    <div className='flex flex-col justify-center gap-2'>
+                        <div className='characterName text-2xl sm:text-3xl'>
+                            <p>
+                                {post?.character.name}
+                            </p>
+                        </div>
+                        <div className='albumName text-2xl sm:text-3xl'>
+                            <p>
+                                {post?.title}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </Link>
             : 
-            <h1>
+            <h1 className='text-5xl text-center mb-4'>
                 {post?.title}
             </h1>}
 
-            <div className='post__imagesWrapper'>
-                <div className='post__imagesWrapper__images'>
+            <div className='flex justify-center mt-4'>
+                <div className={'w-[300px] sm:w-[550px] md:w-[700px] lg:w-[820px]'+(isLoading ? 'h-[250px] sm:h-[400px] md:h-[500px] lg:h-[500px] skeleton__child' : '')}>
                     <Gallery photos={images} onClick={(e) => setSelectedImage((e.target as HTMLImageElement).src)} />
                 </div>
             </div>
 
-            <div className='post__likeSection'>
-                <div className='post__likeSection__likes'>
+            <div className='flex justify-between items-center gap-4 mt-4'>
+                <div>
                     {!authStore.isLoggedIn ? 
                         <ToolTip message='Előbb jelentkezz be.'>
                             <HeartElem 

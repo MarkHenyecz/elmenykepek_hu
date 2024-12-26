@@ -1,8 +1,7 @@
 "use client";
 import { LogEditorOption, logEditorOptions } from '@/components/log-szerkeszto/editor.variables';
 import '../../components/scss/log-editor.scss'
-import Image from 'next/image'
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import CheckBox from '@/components/checkbox';
 import { generateImageFromDomElement } from '@/components/log-szerkeszto/image-generator';
 
@@ -13,36 +12,37 @@ export default function LogEditor() {
   const [defaultData, setDefaultData] = useState<string>('')
   const [removeDefault, setRemoveDefault] = useState<boolean>(true)
 
-  const [textSize, setTextSize] = useState<string>('normal')
-  const possibleTextSizes: { [key: string]: number; } = {
-    'small': 10,
-    'normal': 12,
-    'big': 14,
-    'biggest': 16,
-  }
+  const [textSize, setTextSize] = useState<string>('12px')
+  const possibleTextSizes: string[] = [
+    '10px',
+    '12px',
+    '14px',
+    '16px',
+  ]
 
-  const [size, setSize] = useState<string>('normal')
+  const [size, setSize] = useState<string>('calc(1200px + 2vh)')
   const possibleSizes: { [key: string]: string; } = {
-    'small': 'Kicsi',
-    'normal': 'Normál',
-    'big': 'Nagy',
+    'calc(1000px + 2vh)': 'Kicsi',
+    'calc(1200px + 2vh)': 'Normál',
+    'calc(1550px + 2vh)': 'Nagy',
   }
 
   const logRef = useRef<HTMLDivElement>(null);
 
-  const handleLogChange = (data: string, removeDefault: boolean) => {
+  const handleLogChange = useCallback((data: string, removeDefault: boolean) => {
     setDefaultData(data)
     setFormattedText(currentEditor?.formatLog(data, removeDefault) ?? [])
-  }
+  }, [currentEditor])
+
 
   useEffect(() => {
     handleLogChange(defaultData, removeDefault)
-  }, [currentEditor, removeDefault])
+  }, [defaultData, removeDefault, handleLogChange])
 
   return (
-    <div className={`log-editor ${size}`}>
-      <div className='log-editor__leftSide'>
-        <select onChange={(e) => setCurrentEditor(logEditorOptions.find(editor => editor.serverName == e.target.value))}>
+    <div className='bg-secondary min-h-[80vh] p-4 log-editor' style={{width: size}}>
+      <div className='flex flex-col items-center'>
+        <select className='bg-primary p-2 text-2xl text-center' onChange={(e) => setCurrentEditor(logEditorOptions.find(editor => editor.serverName == e.target.value))}>
           {logEditorOptions.map(item =>
             <option 
             key={item.serverName}
@@ -57,31 +57,31 @@ export default function LogEditor() {
           checked={removeDefault}
           onChange={() => setRemoveDefault(!removeDefault)}
         />
-        <textarea  cols={30} rows={30} onChange={(e) => handleLogChange(e.target.value, removeDefault)} />
+        <textarea className='bg-primary w-[100%]' cols={30} rows={30} onChange={(e) => handleLogChange(e.target.value, removeDefault)} />
       </div>
-      <div className='log-editor__rightSide'>
-        <div className='settings'>
+      <div className='p-4 flex flex-col gap-4'>
+        <div className='flex items-center gap-4'>
           <p>Szöveg szélesség:</p>
-          <select onChange={e => setSize(e.target.value)}>
+          <select className='bg-primary p-2 text-center' onChange={e => setSize(e.target.value)}>
             {Object.keys(possibleSizes).map(key => 
               <option key={key} value={key} selected={key == size}>{possibleSizes[key].toString()}</option>
             )}
           </select>
           <p>Szöveg méret:</p>
-          <select onChange={e => setTextSize(e.target.value)}>
-            {Object.keys(possibleTextSizes).map(key => 
-              <option key={key} value={key} selected={key == textSize}>{possibleTextSizes[key].toString()}px</option>
+          <select className='bg-primary p-2 text-center' onChange={e => setTextSize(e.target.value)}>
+            {possibleTextSizes.map(key => 
+              <option key={key} value={key} selected={key == textSize}>{key}</option>
             )}
           </select>
         </div>
-        <div className='text-area' ref={logRef}>
+        <div className='log-editor__text-area' ref={logRef}>
           {formattedText.map((text, key) => 
-            <p key={key} className={textSize} dangerouslySetInnerHTML={{__html: text}}></p>
+            <p key={key} style={{fontSize: textSize}} dangerouslySetInnerHTML={{__html: text}}></p>
           )}
         </div>
       </div>
-      <div className='log-editor__middle'>
-          <button onClick={() => generateImageFromDomElement(logRef.current)}>
+      <div className='flex items-center justify-center mt-4' style={{gridArea: '2 / 1 / 3 / 3'}}>
+          <button className='bg-primary p-2 text-center' onClick={() => generateImageFromDomElement(logRef.current)}>
             Letöltés képként
           </button>
       </div>

@@ -1,6 +1,5 @@
 "use client";
 import Link from 'next/link';
-import '../../../components/scss/registration.scss'
 import { useState } from 'react';
 import LoaderElem from '@/components/loader/loader';
 import { userService } from '@/components/api/userService';
@@ -28,13 +27,13 @@ export default function Login() {
   }
 
   return (
-    <main className='registration'>
-      <h1>
+    <main className='bg-secondary flex flex-col justify-center items-center p-4 gap-4'>
+      <h1 className='text-3xl'>
         Bejelentkezés
       </h1>
-      <input type="email" name='email' placeholder='Email cím' value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" name='password' placeholder='Jelszó' value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={!isLoading ? () => tryLogin() : undefined}>
+      <input className='bg-primary p-2' type="email" name='email' placeholder='Email cím' value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input className='bg-primary p-2' type="password" name='password' placeholder='Jelszó' value={password} onChange={(e) => setPassword(e.target.value)} />
+      <button className='bg-primary p-2' onClick={!isLoading ? () => tryLogin() : undefined}>
         {isLoading ? <LoaderElem /> : 'Bejelentkezés'}
       </button>
       <Link href={"/profil/regisztracio"}>

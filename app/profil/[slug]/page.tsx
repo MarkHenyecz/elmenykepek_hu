@@ -1,5 +1,4 @@
 "use client";
-import '../../../components/scss/profile.scss'
 import { useEffect, useState } from 'react';
 import { User } from '@/components/interfaces/user.interface';
 import { userService } from '@/components/api/userService';
@@ -15,17 +14,17 @@ export default function Profile({params}: Props) {
   const [user, setUser] = useState<User | null>(null)
   const router = useRouter()
 
-  const getData = async () => {
-    try {
-      setUser((await userService.getProfile(params.slug)).data)
-    } catch {
-      router.push('/')
-    }
-  }
-
   useEffect(() => {
+    const getData = async () => {
+      try {
+        setUser((await userService.getProfile(params.slug)).data)
+      } catch {
+        router.push('/')
+      }
+    }
+
     getData()
-  }, [])
+  }, [params, router])
 
   if(!user)
     return (

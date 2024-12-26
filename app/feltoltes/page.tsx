@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from 'react';
-import '../../components/scss/upload.scss'
 import Image from 'next/image';
 import CharacterModal from '@/components/character-modal/characterModal';
 import { Character } from '@/components/interfaces/character.interface';
@@ -64,32 +63,38 @@ export default function LogEditor() {
   }
 
   return (
-    <main className='upload'>
+    <main className='bg-secondary flex flex-col align-center gap-4 p-4'>
       {isModalOpen ? <CharacterModal close={() => {setIsModalOpen(false); getData();}} /> : null}
 
-      <input type="text" placeholder='Album címe...' value={title} onChange={(e) => setTitle(e.target.value)} />
+      <input className='text-3xl bg-primary border-primary border-[.5rem]' type="text" placeholder='Album címe...' value={title} onChange={(e) => setTitle(e.target.value)} />
 
-      <div className='characterSection'>
-        <select onChange={(e) => setSelectedCharacter(parseInt(e.target.value))}>
+      <div className='flex align-center gap-8'>
+        <select 
+          className='bg-primary border-primary border-[.5rem]'
+          onChange={(e) => setSelectedCharacter(parseInt(e.target.value))}
+        >
           <option disabled selected={selectedCharacter == null}>Válassz karaktert</option>
           {characters?.map(item =>
             <option value={item.id} key={item.id} selected={selectedCharacter == item.id}>{item.name}</option>
           )}
         </select>
 
-        <p onClick={() => setIsModalOpen(true)}>
+        <p 
+          className='flex items-center text-center cursor-pointer'
+          onClick={() => setIsModalOpen(true)}
+        >
           + új karakter létrehozása
         </p>
       </div>
 
-      <div className={`uploadSection ${uploadedImages.length == 0 && 'empty'}`} onClick={() => fileRef.current?.click()}>
+      <div className={`bg-primary p-4 flex flex-col items-center gap-4 cursor-pointer`} onClick={() => fileRef.current?.click()}>
         {uploadedImages.length == 0 ?
           <>
             <Image 
               src={"/icons/upload-icon.svg"}
               alt={"Feltöltés ikon"}
-              width={128}
-              height={128}
+              width={100}
+              height={100}
             />
             <p>A felöltéshez húzd ide a képeket vagy kattints a dobozba</p>
           </>
@@ -104,7 +109,7 @@ export default function LogEditor() {
         />
       </div>
 
-      <button onClick={() => !isLoading ? handleSave() : undefined}>
+      <button className='bg-primary p-4' onClick={() => !isLoading ? handleSave() : undefined}>
         {!isLoading ? 'Publikálás' : <LoaderElem />}
       </button>
     </main>

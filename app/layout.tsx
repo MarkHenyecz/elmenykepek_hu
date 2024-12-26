@@ -1,5 +1,4 @@
 import './global.css'
-import '../components/scss/layout.scss'
 import { Inter } from 'next/font/google'
 import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
@@ -19,10 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="hu">
-      <body className={inter.className}>
+      <body className={`bg-primary text-main ${inter.className}`}>
         <Header />
         
-        <div className="content">
+        <div className="flex justify-center items-center min-h-[80vh]">
           {children}
         </div>
 

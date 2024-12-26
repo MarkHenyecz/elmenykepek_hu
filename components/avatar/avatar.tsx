@@ -1,7 +1,5 @@
 "use client";
 import Image from 'next/image';
-import '../../components/scss/avatar.scss'
-import { useState } from 'react';
 
 export interface Avatar {
     onClick?: () => void
@@ -20,7 +18,7 @@ export default function AvatarElem({ onClick, username, icon, width, height, ico
 
 
   return (
-    <div className={`avatar ${centerIcon ? 'centerIcon' : ''}`} style={{height: `${height}px`, width: `${width}px`}} onClick={onClick}>
+    <div className={`avatar bg-primary w-[50px] h-[50px] rounded-full overflow-hidden flex justify-center ${centerIcon ? 'items-center' : 'items-end'}`} style={{height: `${height}px`, width: `${width}px`}} onClick={onClick}>
         <Image 
         src={typeof icon == "string" ? icon : "/icons/user-icon.svg"}
         alt={username ?? "Avatár"}

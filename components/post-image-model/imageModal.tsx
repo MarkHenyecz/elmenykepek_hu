@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { GalleryItem } from '../post/post';
-import "../scss/characterModal.scss"
 import { useState } from 'react';
 
 interface Props {
@@ -26,8 +25,8 @@ const ImageModal = ({ images, initialImage, close }: Props) => {
 
     return (
         <div 
-            className='imageModal' 
-            onClick={(e) => (e.target as HTMLDivElement).className == 'imageModal' ? close() : undefined}
+            className='flex flex-col gap-4 z-10 left-0 top-0 fixed w-[100vw] h-[100vh] bg-[#0000009a] justify-center items-center imageModal'
+            onClick={(e) => (e.target as HTMLDivElement).className.includes('imageModal') ? close() : undefined}
         >
             <Image 
                 src={selectedImage}
@@ -36,7 +35,7 @@ const ImageModal = ({ images, initialImage, close }: Props) => {
                 height={600}
             />
 
-            <div className='imageModal__navigation'>
+            <div className='flex items-center jusitfy-between gap-4 [&>img]:cursor-pointer'>
                 <Image 
                     src={"/icons/arrow-left.svg"}
                     alt={"Vissza"}
@@ -56,7 +55,7 @@ const ImageModal = ({ images, initialImage, close }: Props) => {
                         alt={img.src}
                         height={100}
                         width={100}
-                        className={selectedImage == img.src ? 'selected' : ''}
+                        className={selectedImage == img.src ? 'border-accent border-[3px]' : ''}
                         onClick={() => setSelectedImage(img.src)}
                     />
                 )}
