@@ -7,11 +7,13 @@ import { useEffect, useState } from 'react';
 export default function Home() {
   const [posts, setPosts] = useState<Post[] | undefined>(undefined)
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true)
       const pageData = (await postService.getPosts(currentPage)).data
-
+  
       const newPosts = posts || [];
       pageData.data.forEach(post => {
         newPosts.push(post)
@@ -24,10 +26,12 @@ export default function Home() {
         }
         return false;
       }))
+      if(pageData.last_page > currentPage)
+        setLoading(false)
     }
 
     getData()
-  }, [currentPage, posts])
+  }, [currentPage])
 
   if(!posts)
     return(
@@ -42,7 +46,7 @@ export default function Home() {
         <PostElem 
         key={post.slug} 
         post={post} 
-        onVisible={key == (posts.length-1) ? () => setCurrentPage(currentPage+1) : undefined} 
+        onVisible={(key == (posts.length-1) && !loading) ? () => setCurrentPage(currentPage+1) : undefined} 
         />
       )}
     </main>
